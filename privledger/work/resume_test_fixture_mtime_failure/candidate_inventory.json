@@ -1,0 +1,110 @@
+[
+  {
+    "stable_id": "[\"kaminski-v\",\"kaminski-v/inbox/0\",\"email\",-1]",
+    "custodian": "kaminski-v",
+    "source_relative_path": "kaminski-v/inbox/0",
+    "artifact_type": "email",
+    "attachment_index": -1,
+    "source_size": 201,
+    "source_mtime_ns": 1790231403827422600
+  },
+  {
+    "stable_id": "[\"kaminski-v\",\"kaminski-v/inbox/1\",\"email\",-1]",
+    "custodian": "kaminski-v",
+    "source_relative_path": "kaminski-v/inbox/1",
+    "artifact_type": "email",
+    "attachment_index": -1,
+    "source_size": 201,
+    "source_mtime_ns": 1790231403828424200
+  },
+  {
+    "stable_id": "[\"kaminski-v\",\"kaminski-v/inbox/2\",\"email\",-1]",
+    "custodian": "kaminski-v",
+    "source_relative_path": "kaminski-v/inbox/2",
+    "artifact_type": "email",
+    "attachment_index": -1,
+    "source_size": 201,
+    "source_mtime_ns": 1790231403829424700
+  },
+  {
+    "stable_id": "[\"kaminski-v\",\"kaminski-v/inbox/3\",\"email\",-1]",
+    "custodian": "kaminski-v",
+    "source_relative_path": "kaminski-v/inbox/3",
+    "artifact_type": "email",
+    "attachment_index": -1,
+    "source_size": 201,
+    "source_mtime_ns": 1790231403830423600
+  },
+  {
+    "stable_id": "[\"lay-k\",\"lay-k/inbox/0\",\"email\",-1]",
+    "custodian": "lay-k",
+    "source_relative_path": "lay-k/inbox/0",
+    "artifact_type": "email",
+    "attachment_index": -1,
+    "source_size": 196,
+    "source_mtime_ns": 1790231403821427500
+  },
+  {
+    "stable_id": "[\"lay-k\",\"lay-k/inbox/1\",\"email\",-1]",
+    "custodian": "lay-k",
+    "source_relative_path": "lay-k/inbox/1",
+    "artifact_type": "email",
+    "attachment_index": -1,
+    "source_size": 196,
+    "source_mtime_ns": 1790231403821427500
+  },
+  {
+    "stable_id": "[\"lay-k\",\"lay-k/inbox/2\",\"email\",-1]",
+    "custodian": "lay-k",
+    "source_relative_path": "lay-k/inbox/2",
+    "artifact_type": "email",
+    "attachment_index": -1,
+    "source_size": 196,
+    "source_mtime_ns": 1790231403822422500
+  },
+  {
+    "stable_id": "[\"lay-k\",\"lay-k/inbox/3\",\"email\",-1]",
+    "custodian": "lay-k",
+    "source_relative_path": "lay-k/inbox/3",
+    "artifact_type": "email",
+    "attachment_index": -1,
+    "source_size": 196,
+    "source_mtime_ns": 1790231403823424700
+  },
+  {
+    "stable_id": "[\"skilling-j\",\"skilling-j/inbox/0\",\"email\",-1]",
+    "custodian": "skilling-j",
+    "source_relative_path": "skilling-j/inbox/0",
+    "artifact_type": "email",
+    "attachment_index": -1,
+    "source_size": 201,
+    "source_mtime_ns": 1790231403824425500
+  },
+  {
+    "stable_id": "[\"skilling-j\",\"skilling-j/inbox/1\",\"email\",-1]",
+    "custodian": "skilling-j",
+    "source_relative_path": "skilling-j/inbox/1",
+    "artifact_type": "email",
+    "attachment_index": -1,
+    "source_size": 201,
+    "source_mtime_ns": 1790231403825428700
+  },
+  {
+    "stable_id": "[\"skilling-j\",\"skilling-j/inbox/2\",\"email\",-1]",
+    "custodian": "skilling-j",
+    "source_relative_path": "skilling-j/inbox/2",
+    "artifact_type": "email",
+    "attachment_index": -1,
+    "source_size": 201,
+    "source_mtime_ns": 1790231403825428700
+  },
+  {
+    "stable_id": "[\"skilling-j\",\"skilling-j/inbox/3\",\"email\",-1]",
+    "custodian": "skilling-j",
+    "source_relative_path": "skilling-j/inbox/3",
+    "artifact_type": "email",
+    "attachment_index": -1,
+    "source_size": 201,
+    "source_mtime_ns": 1790231403826426500
+  }
+]

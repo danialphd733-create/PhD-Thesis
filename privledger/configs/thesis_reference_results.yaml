@@ -1,0 +1,13 @@
+evidence_type: thesis-reference
+integrity: {hash_fidelity: 1.0, event_completeness: 1.0}
+linkability:
+  static: {direct_id_match: 1.0, roc_auc: 1.0, accuracy: 1.0, f1: 1.0}
+  rotated: {direct_id_match: 0.0, roc_auc: 0.909, accuracy: 0.877, f1: 0.890}
+gas:
+  privledger_simulated: {register: 750000, access: 180000, delete: 420000}
+  bcoc_literature: {register: 170207, access: 80502, delete: 236478}
+  smartcoauth_access_range: [105000, 145000]
+illustrative_p95_seconds:
+  privledger: {register: 2.7, access: 1.6, delete: 3.4}
+  bcoc: {register: 1.4, access: 0.9, delete: 1.8}
+reliability: {modeled_rpo: 0, modeled_rto_target_seconds: 60, modeled_evidence_loss: 0}

@@ -1,0 +1,10 @@
+services:
+  ipfs:
+    image: ipfs/kubo:v0.43.1
+    command: [daemon, --offline]
+    ports:
+      - "127.0.0.1:5001:5001"
+    volumes:
+      - privledger-ipfs:/data/ipfs
+volumes:
+  privledger-ipfs:

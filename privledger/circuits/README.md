@@ -1,0 +1,11 @@
+# Real research authorization proof
+
+`node scripts/build_zk.cjs` compiles Circom to R1CS/WASM, performs local Groth16 setup, exports verification key and generated Solidity verifier. `npm run compile` then `npm test` exercises actual BN254 pairing verification. Setup metadata and SHA-256 checksums live in build/setup_manifest.json.
+
+Public inputs ordered: credential commitment, required role, evaluation epoch, evidence ID modulo BN254 scalar field, action, nullifier. Private inputs: secret, role, expiry epoch. Commitment is Poseidon(secret,role,expiry); nullifier is Poseidon(secret,evidence,action,epoch). Epoch is UTC day from EVM block timestamp. Both epochs are range constrained to 64 bits, role must equal required role, expiry must be at least evaluation epoch. The contract constructs all six signals itself and requires issuer-registered commitment, matching role/expiry, no revocation, active evidence and unused nullifier.
+
+Implementation choices: action 1 requires investigator(1), action 2 auditor(2), action 3 legal authority(3). Holder-bound nullifiers allow only one successful credential/evidence/action/day. Submitters relay bearer proofs; caller wallet identity is not part of the proof. Public credential commitments and caller addresses can link transactions: rotating DID labels alone does not provide on-chain unlinkability.
+
+The single-party setup uses OS-generated random contributions locally. This is genuine Groth16, but has **no multiparty trusted-setup security claim**. Generated proving material must never be used for production. Initial/intermediate setup files are research artifacts and gitignored. No external setup files downloaded. Setup randomness is intentionally not seeded by the workload seed; repeated experiments preserve keys once built. Regenerating the setup requires recompiling and redeploying the matching verifier. Secret, role and expiry are never printed by bridge; secrets travel through stdin.
+
+Redaction/deletion storage attestations are supplied commitment references, not proof of global physical IPFS erasure. No ring-signature primitive is implemented. Solidity modules are consolidated in PrivLedger.sol to keep the tested state machine together.

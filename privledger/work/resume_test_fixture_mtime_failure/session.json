@@ -1,0 +1,24 @@
+{
+  "deployment": {
+    "address": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+    "addresses": {
+      "Groth16Verifier": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+      "ZKAdapter": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+      "PrivLedger": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0"
+    },
+    "chainId": 31337
+  },
+  "genesis_hash": "5d56c2aaeef7d4c5053803a2bc36b45b7ca361599b03f656e345c48e9d1d9528",
+  "deployment_probe_tx": "935354a9f58f875586794eee3296b9a8ff49d5f3fcf530c0cd892280c374aaa9",
+  "created_utc": "2026-09-24T06:30:03.396910+00:00",
+  "secret_dir": "C:\\Users\\nadia\\Documents\\Codex\\2026-09-23\\we-x20\\outputs\\privledger\\secrets\\checkpoint_20260924T063003Z_test",
+  "workloads": {
+    "4": {
+      "dataset_preprocessing_seconds": 0.1197692000000643,
+      "dataset_selection_seconds": 4.750000016429112e-05,
+      "segments": [
+        0.5814546999999948
+      ]
+    }
+  }
+}

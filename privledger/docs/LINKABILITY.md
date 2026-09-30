@@ -1,0 +1,19 @@
+# E3B linkability experiment
+
+This is an independent synthetic implementation of thesis section 4.12.2, not a reconstruction of missing original research code. Default: 10,000 pairs, 5,000 same actor and 5,000 different actor, seed 42. Thesis Table 12 metrics are saved separately in `thesis_linkability_reference.json`; they do not affect generation, fitting, or model selection.
+
+## Synthetic workload and attacker
+
+There are 200 synthetic actors with independently sampled fixed roles (5 categories), preferred actions (6), preferred case categories (8), and preferred hours uniformly distributed over 24 hours. Each event uses its actor's role. Action is preferred with probability 0.8, otherwise uniform; case category is preferred with probability 0.7, otherwise uniform. Thus random fallback may select the preferred category again. Event hour is actor preference plus Gaussian noise with standard deviation 2.5 hours, wrapped modulo 24. Event day is independently uniform over 30 days. These are explicit modeling assumptions, not distributions inferred from Enron or estimated from the thesis.
+
+Balanced labels are shuffled. A left actor is uniform; a same-actor partner reuses it, while a different-actor partner adds a uniform nonzero offset modulo 200. Every pair contains two newly generated events with globally unique event IDs. Consequently no events are shared between pairs or train/test partitions. This intentionally models independent pair sampling, rather than every possible pair from a fixed finite log. Actors and their latent profiles may recur across train/test: this is a known-population attacker, not a held-out-actor generalization test. Pair dependence through actor profiles remains a limitation.
+
+Static DIDs persist per actor; rotated DIDs are unique per event. Feature extraction receives only observable event fields. Hidden actor IDs and pair labels are used for workload generation and evaluation, never as classifier inputs. Synthetic DID strings have readable identifiers for auditability, but only equality is extracted; no string parsing occurs.
+
+Features: identifier equality, role equality, action equality, case-category equality, absolute timestamp difference in hours, and time-of-day similarity `1 - circular_hour_distance / 12`. Both conditions use exactly the same context and pairs. Direct identifier match rate means the proportion of **same-actor pairs** whose identifiers match, measured on the full balanced dataset; reporting it over all pairs would misleadingly halve the static rate. Different-actor match rate is also saved.
+
+## Estimation and files
+
+A stratified 70/30 train/test pair split uses random state 42. Each of six fits uses StandardScaler fitted on training data only, followed by scikit-learn LogisticRegression (default L2 regularization, C=1, lbfgs, max_iter=1000, fixed random state), with probability threshold 0.5. The primary classifier uses all six features. Ablations use identifier only and context only. No tuning, cross-validation selection, or threshold optimization uses held-out data. Constant rotated-identifier input correctly provides no ranking information; its ROC-AUC should be 0.5.
+
+The CSV/JSON results contain ROC-AUC, accuracy, precision, recall, F1, confusion counts, and split sizes. `linkability_predictions.csv` records held-out pair IDs, labels, probabilities and predictions for all six fits; labels in this evaluation output are not model inputs. Three figures each have PNG and SVG versions. Metrics may differ from the thesis because its exact event generator, classifier settings, preprocessing, and pair split were not supplied. Seed, pair count and implemented distributions define this run. No universal anonymity or production re-identification claim follows. Network observers, collusion, external identity datasets, wallet compromise and long-term surveillance are outside this synthetic model.

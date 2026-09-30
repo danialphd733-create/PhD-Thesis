@@ -1,0 +1,2 @@
+# E8: not empirically evaluated
+No participants or user-study scores are reported. A future approved study should recruit investigators, auditors, custodians and legal reviewers. Tasks: registration, evidence search, access approval, audit-log inspection, redaction review and deletion review. Collect task-success rate, completion time, errors, perceived workload and SUS with consent and a prespecified protocol.

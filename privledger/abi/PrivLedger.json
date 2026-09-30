@@ -1,0 +1,886 @@
+[
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "v",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
+    "inputs": [],
+    "name": "AccessControlBadConfirmation",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "neededRole",
+        "type": "bytes32"
+      }
+    ],
+    "name": "AccessControlUnauthorizedAccount",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "EnforcedPause",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "ExpectedPause",
+    "type": "error"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "bytes32",
+        "name": "evidenceId",
+        "type": "bytes32"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint8",
+        "name": "actionCode",
+        "type": "uint8"
+      },
+      {
+        "indexed": false,
+        "internalType": "bytes32",
+        "name": "credentialCommitment",
+        "type": "bytes32"
+      },
+      {
+        "indexed": false,
+        "internalType": "bytes32",
+        "name": "nullifierHash",
+        "type": "bytes32"
+      },
+      {
+        "indexed": false,
+        "internalType": "bool",
+        "name": "allowed",
+        "type": "bool"
+      }
+    ],
+    "name": "AccessDecision",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "bytes32",
+        "name": "credentialCommitment",
+        "type": "bytes32"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint8",
+        "name": "role",
+        "type": "uint8"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint64",
+        "name": "expiry",
+        "type": "uint64"
+      }
+    ],
+    "name": "CredentialIssued",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "bytes32",
+        "name": "credentialCommitment",
+        "type": "bytes32"
+      },
+      {
+        "indexed": false,
+        "internalType": "bytes32",
+        "name": "revocationReasonHash",
+        "type": "bytes32"
+      }
+    ],
+    "name": "CredentialRevoked",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "bytes32",
+        "name": "evidenceId",
+        "type": "bytes32"
+      },
+      {
+        "indexed": false,
+        "internalType": "bytes32",
+        "name": "storageAttestationHash",
+        "type": "bytes32"
+      },
+      {
+        "indexed": false,
+        "internalType": "bytes32",
+        "name": "proofRef",
+        "type": "bytes32"
+      }
+    ],
+    "name": "EvidenceDeletionRecorded",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "bytes32",
+        "name": "parentEvidenceId",
+        "type": "bytes32"
+      },
+      {
+        "indexed": true,
+        "internalType": "bytes32",
+        "name": "childEvidenceId",
+        "type": "bytes32"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "replacementCid",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "bytes32",
+        "name": "storageAttestationHash",
+        "type": "bytes32"
+      },
+      {
+        "indexed": false,
+        "internalType": "bytes32",
+        "name": "proofRef",
+        "type": "bytes32"
+      }
+    ],
+    "name": "EvidenceRedacted",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "bytes32",
+        "name": "evidenceId",
+        "type": "bytes32"
+      },
+      {
+        "indexed": false,
+        "internalType": "bytes32",
+        "name": "sha256Digest",
+        "type": "bytes32"
+      },
+      {
+        "indexed": false,
+        "internalType": "bytes32",
+        "name": "keccakDigest",
+        "type": "bytes32"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "cid",
+        "type": "string"
+      }
+    ],
+    "name": "EvidenceRegistered",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      }
+    ],
+    "name": "Paused",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "bytes32",
+        "name": "role",
+        "type": "bytes32"
+      },
+      {
+        "indexed": true,
+        "internalType": "bytes32",
+        "name": "previousAdminRole",
+        "type": "bytes32"
+      },
+      {
+        "indexed": true,
+        "internalType": "bytes32",
+        "name": "newAdminRole",
+        "type": "bytes32"
+      }
+    ],
+    "name": "RoleAdminChanged",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "bytes32",
+        "name": "role",
+        "type": "bytes32"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "sender",
+        "type": "address"
+      }
+    ],
+    "name": "RoleGranted",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "bytes32",
+        "name": "role",
+        "type": "bytes32"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "sender",
+        "type": "address"
+      }
+    ],
+    "name": "RoleRevoked",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      }
+    ],
+    "name": "Unpaused",
+    "type": "event"
+  },
+  {
+    "inputs": [],
+    "name": "CIRCUIT_ID",
+    "outputs": [
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "DEFAULT_ADMIN_ROLE",
+    "outputs": [
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "FIELD",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "ISSUER_ROLE",
+    "outputs": [
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "LEGAL_ROLE",
+    "outputs": [
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "REGISTRAR_ROLE",
+    "outputs": [
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "name": "credentials",
+    "outputs": [
+      {
+        "internalType": "uint8",
+        "name": "role",
+        "type": "uint8"
+      },
+      {
+        "internalType": "uint64",
+        "name": "expiry",
+        "type": "uint64"
+      },
+      {
+        "internalType": "bool",
+        "name": "issued",
+        "type": "bool"
+      },
+      {
+        "internalType": "bool",
+        "name": "revoked",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "name": "evidence",
+    "outputs": [
+      {
+        "internalType": "bytes32",
+        "name": "sha256Digest",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "keccakDigest",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "zkCommitment",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "string",
+        "name": "cid",
+        "type": "string"
+      },
+      {
+        "internalType": "uint64",
+        "name": "retentionUntil",
+        "type": "uint64"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "custodianDidHash",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "parent",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "uint8",
+        "name": "state",
+        "type": "uint8"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "role",
+        "type": "bytes32"
+      }
+    ],
+    "name": "getRoleAdmin",
+    "outputs": [
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "role",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      }
+    ],
+    "name": "grantRole",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "role",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      }
+    ],
+    "name": "hasRole",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "c",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "uint8",
+        "name": "role",
+        "type": "uint8"
+      },
+      {
+        "internalType": "uint64",
+        "name": "expiry",
+        "type": "uint64"
+      }
+    ],
+    "name": "issueCredential",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "name": "nullifiers",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bool",
+        "name": "paused",
+        "type": "bool"
+      }
+    ],
+    "name": "pause",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "paused",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "id",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "attestation",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "proofRef",
+        "type": "bytes32"
+      }
+    ],
+    "name": "recordDeletion",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "parent",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "child",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "string",
+        "name": "cid",
+        "type": "string"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "attestation",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "proofRef",
+        "type": "bytes32"
+      }
+    ],
+    "name": "recordRedaction",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "id",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "sha",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "kek",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "zk",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "string",
+        "name": "cid",
+        "type": "string"
+      },
+      {
+        "internalType": "uint64",
+        "name": "retention",
+        "type": "uint64"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "did",
+        "type": "bytes32"
+      }
+    ],
+    "name": "registerEvidence",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "role",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "address",
+        "name": "callerConfirmation",
+        "type": "address"
+      }
+    ],
+    "name": "renounceRole",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "id",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "uint8",
+        "name": "action",
+        "type": "uint8"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "credential",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "nullifier",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes",
+        "name": "proof",
+        "type": "bytes"
+      }
+    ],
+    "name": "requestAccess",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "allowed",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint8",
+        "name": "",
+        "type": "uint8"
+      }
+    ],
+    "name": "requiredRoles",
+    "outputs": [
+      {
+        "internalType": "uint8",
+        "name": "",
+        "type": "uint8"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "c",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "reason",
+        "type": "bytes32"
+      }
+    ],
+    "name": "revokeCredential",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "role",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      }
+    ],
+    "name": "revokeRole",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes4",
+        "name": "interfaceId",
+        "type": "bytes4"
+      }
+    ],
+    "name": "supportsInterface",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "verifier",
+    "outputs": [
+      {
+        "internalType": "contract IZKVerifier",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "circuitId",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "publicSignals",
+        "type": "uint256[]"
+      },
+      {
+        "internalType": "bytes",
+        "name": "proof",
+        "type": "bytes"
+      }
+    ],
+    "name": "verifyProof",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  }
+]

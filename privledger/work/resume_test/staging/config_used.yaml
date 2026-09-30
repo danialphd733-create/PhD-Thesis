@@ -1,0 +1,53 @@
+version: 1
+study: PrivLedger controlled prototype evaluation
+reproducibility:
+  seed: 42
+  deterministic_selection: true
+dataset:
+  name: CMU Enron Email Dataset
+  custodians:
+  - lay-k
+  - skilling-j
+  - kaminski-v
+  sample_sizes:
+  - 1000
+  - 5000
+  - 10000
+  primary_sample_size: 10000
+  selection_method: sorted candidates then random.Random(42).sample
+workload:
+  registration_events_per_artifact: 1
+  access_requests_per_artifact:
+  - 1
+  - 5
+  redaction_events_per_artifact:
+  - 0
+  - 1
+  deletion_events_per_artifact:
+  - 0
+  - 1
+  linkability_event_pairs: 10000
+identity_and_privacy:
+  zkp_backend: Groth16
+  circuit_hash: Poseidon
+  evidence_anchor_hashes:
+  - SHA-256
+  - Keccak-256
+  did_rotation: one pseudonym per event
+implementation_choices:
+  smoke_size: 5
+  quick_size: 25
+  access_allow_ratio: 0.5
+  redaction_probability: 0.2
+  deletion_probability: 0.1
+  train_test_fraction: 0.3
+  gas_benchmark_transactions_per_operation: 100
+  live_lifecycle_sample_limit: 10
+  quick_live_lifecycle_sample_limit: 50
+  full_live_lifecycle_sample_limit: 200
+  confirmation_assumption_seconds: 4
+  rpc_url: http://127.0.0.1:8545
+  ipfs_api: http://127.0.0.1:5001
+  mode_boundary: All selected artifacts hashed, encrypted, pinned, registered and
+    verified; seeded lifecycle events simulated at scale; bounded live proof-backed
+    lifecycle benchmark reported separately.

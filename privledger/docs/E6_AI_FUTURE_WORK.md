@@ -1,0 +1,2 @@
+# E6: future work, not evaluated
+No anomaly detector is trained or evaluated. Candidate inputs: actor role, sensitivity, access frequency, time of day, denial rate, repeated attempts, unusual evidence queries. Candidate models: Isolation Forest and One-Class SVM. A future labelled evaluation should measure precision, recall, F1, ROC-AUC, false-positive rate and explanation quality. Linkability attack classification in E3 is a separate simulation, not an AI access-control result.

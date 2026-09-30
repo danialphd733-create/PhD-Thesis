@@ -1,0 +1,9 @@
+threats:
+  - {threat: Metadata Leakage, control: encrypted off-chain payload and commitments, experiment: E3, evidence_type: analytical}
+  - {threat: Identity Linkability, control: "Synthetic E3 DID rotation removes direct identifier equality; residual contextual linkability is measured in E3", experiment: E3, evidence_type: simulated}
+  - {threat: Unauthorized Access, control: credential issuance revocation and Groth16 policy, experiment: E2, evidence_type: measured}
+  - {threat: Evidence Tampering, control: SHA-256 and Ethereum Keccak anchoring, experiment: E1, evidence_type: measured}
+  - {threat: Deletion Non-Compliance, control: authorized logical deletion and local unpin, experiment: E4, evidence_type: measured}
+  - {threat: System Failure/Data Loss, control: local restart plus analytical scenarios, experiment: E7, evidence_type: analytical}
+risk_bands: {Low: [1, 4], Moderate: [5, 9], High: [10, 14], Critical: [15, 25]}
+# No invented severity/likelihood scores. Coverage is not proof of mitigation effectiveness.

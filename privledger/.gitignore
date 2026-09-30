@@ -1,0 +1,15 @@
+node_modules/
+.venv/
+.env
+secrets/
+data/raw/
+data/processed/
+circuits/build/
+artifacts/
+cache/
+__pycache__/
+.pytest_cache/
+*.pyc
+.runtime/
+results/
+logs/

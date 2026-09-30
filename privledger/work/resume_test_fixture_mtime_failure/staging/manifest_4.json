@@ -1,0 +1,28 @@
+{
+  "seed": 42,
+  "dataset_root_description": "C:\\Users\\nadia\\Documents\\Codex\\2026-09-23\\we-x20\\outputs\\privledger\\.runtime\\smoke\\maildir",
+  "dataset_root_fingerprint": "2554259cf29666beed2ba949cb86fee9cc23ab0391e7329045ae7739a67dc31f",
+  "fingerprint_scope": "Candidate stable identifiers (not content hashes)",
+  "custodians": [
+    "lay-k",
+    "skilling-j",
+    "kaminski-v"
+  ],
+  "candidate_count": 12,
+  "selected_count": 4,
+  "sample_size": 4,
+  "selection_algorithm": "random.Random(seed).sample(sorted candidates by stable_id, N)",
+  "selected_stable_identifiers": [
+    "[\"skilling-j\",\"skilling-j/inbox/2\",\"email\",-1]",
+    "[\"kaminski-v\",\"kaminski-v/inbox/1\",\"email\",-1]",
+    "[\"kaminski-v\",\"kaminski-v/inbox/0\",\"email\",-1]",
+    "[\"lay-k\",\"lay-k/inbox/0\",\"email\",-1]"
+  ],
+  "selection_fingerprint": "9ffa5f61f741295148a5a81c1d4a8763febbd53726e4ae2d66c24fca9d8fb076",
+  "software": {
+    "python": "3.12.14",
+    "privledger": "0.1.0"
+  },
+  "manifest_sha256": "d2900937c73e7da06f9dc2f5b380df08706659ecdb680b9e6c688f71464887d7",
+  "deterministic_selection_verified": true
+}
